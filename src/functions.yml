@@ -1,4 +1,4 @@
-# -------- ENTERPRISES --------
+--- # -------- ENTERPRISES --------
 
 createEnterprise:
   handler: src/Enterprise._create
@@ -58,3 +58,13 @@ getProductsByEnterprise:
         path: product
         method: get
         cors: true
+
+sendEmailWithInventory:
+  handler: src/Inventory._sendEmail
+  description: Send an email with inventory in PDF format
+  events:
+    - http:
+        path: pdf_inventory/{id}
+        method: post
+        cors: true
+        authorizer: verify-token

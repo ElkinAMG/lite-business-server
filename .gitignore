@@ -1,7 +1,12 @@
 # Development packages
 node_modules
-.serverless
+
+# Serverless
 .webpack
+.serverless
+config/
+config
+models/
 
 # Environment Variables
 .env
