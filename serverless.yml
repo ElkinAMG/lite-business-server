@@ -1,0 +1,34 @@
+service: lite-businesses
+frameworkVersion: "3"
+
+useDotenv: true
+
+custom:
+  bundle:
+    ignorePackages:
+      - pg-native
+
+provider:
+  name: "aws"
+  runtime: nodejs16.x
+  stage: ${opt:stage, "dev"}
+  region: us-east-1
+  environment:
+    DB_HOST: ${cf:lite-businesses-dev.Endpoint}
+    JWT_SECRET: ${env:JWT_SECRET}
+
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+functions:
+  - ${file(./src/Auth/auth-functions.yml)}
+  - ${file(./src/functions.yml)}
+
+resources:
+  # Database
+  - ${file(./resources/database.yml)}

@@ -1,0 +1,21 @@
+verify-token:
+  description: It verifies tokens as custom authorizer
+  handler: src/Auth/verifyToken.main
+
+logInUser:
+  description: It attemps to log in a user with json web tokens
+  handler: src/Auth/login.main
+  events:
+    - http:
+        path: login
+        method: post
+        cors: true
+
+signUpUser:
+  description: It attemps to signs up a user with json web tokens
+  handler: src/Auth/register.main
+  events:
+    - http:
+        path: register
+        method: post
+        cors: true

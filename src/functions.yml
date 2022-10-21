@@ -1,0 +1,60 @@
+# -------- ENTERPRISES --------
+
+createEnterprise:
+  handler: src/Enterprise._create
+  description: Creates an enterprise based on data retrieved from body
+  events:
+    - http:
+        path: enterprise
+        method: post
+        cors: true
+        authorizer: verify-token
+
+deleteEnterprise:
+  handler: src/Enterprise._delete
+  description: Deletes an enterprise based on NIT
+  events:
+    - http:
+        path: enterprise/{id}
+        method: delete
+        cors: true
+        authorizer: verify-token
+
+getEnterprise:
+  handler: src/Enterprise._get
+  description: Gets detailed information for enterprises based on NIT
+  events:
+    - http:
+        path: enterprise/{id}
+        method: get
+        cors: true
+
+getAllEnterprises:
+  handler: src/Enterprise._getAll
+  description: Gets all existing enterprises on database
+  events:
+    - http:
+        path: enterprises
+        method: get
+        cors: true
+
+# -------- INVENTORY --------
+
+createProduct:
+  handler: src/Inventory._create
+  description: Creates a product based on enterprise NIT.
+  events:
+    - http:
+        path: product
+        method: post
+        cors: true
+        authorizer: verify-token
+
+getProductsByEnterprise:
+  handler: src/Inventory._getByEnterprise
+  description: Gets products who belongs to specific enterprise based on NIT.
+  events:
+    - http:
+        path: product
+        method: get
+        cors: true
