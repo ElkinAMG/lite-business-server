@@ -1,5 +1,7 @@
 # Development packages
 node_modules
+.serverless
+.webpack
 
 # Environment Variables
 .env
