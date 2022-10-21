@@ -1,0 +1,35 @@
+Resources:
+  LiteNotificationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: LiteNotification-${opt:stage, "dev"}-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: LiteNotification-${opt:stage, "dev"}
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - xray:PutTraceSegments
+                  - xray:PutTelemetryRecords
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "arn:aws:logs:${aws:region}:${aws:accountId}:log-group:/aws/lambda/*:*:*"
+              - Effect: Allow
+                Action:
+                  - ses:SendRawEmail
+                  - ses:SendEmail
+                  - ses:SendTemplatedEmail
+                Resource: "arn:aws:ses:us-east-1:458454935262:identity/pakud.com"

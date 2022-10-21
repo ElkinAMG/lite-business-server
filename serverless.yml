@@ -32,3 +32,6 @@ functions:
 resources:
   # Database
   - ${file(./resources/database.yml)}
+
+  # NOTIFICATION'S ROLE
+  - ${file(./resources/mailing-role.yml)}

@@ -68,3 +68,4 @@ sendEmailWithInventory:
         method: post
         cors: true
         authorizer: verify-token
+  role: LiteNotificationRole
