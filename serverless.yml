@@ -12,8 +12,8 @@ custom:
           # Where in the package should they go
     ignorePackages:
       - pg-native
-    forceExclude: # Don't include these in the package
-      - chrome-aws-lambda # Because it'll be provided through a Lambda Layer
+    forceExclude:
+      - "@sparticuz/chrome-aws-lambda" # Because it'll be provided through a Lambda Layer
       - puppeteer-core
 
 provider:

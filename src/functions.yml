@@ -136,6 +136,9 @@ sendEmailWithInventory:
         method: post
         cors: true
   role: LiteNotificationRole
+  runtime: nodejs14.x
+  layers:
+    - arn:aws:lambda:us-east-1:458454935262:layer:chrome_aws_lambda:3
 
 getInventoryPDF:
   handler: src/Inventory/getInventoryPDF._getInventoryPDF
@@ -150,3 +153,5 @@ getInventoryPDF:
           resultTtlInSeconds: 0
           identitySource: method.request.header.Authorization
           type: token
+  layers:
+    - arn:aws:lambda:us-east-1:458454935262:layer:chrome_aws_lambda:3
