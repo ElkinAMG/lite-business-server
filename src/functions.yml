@@ -8,7 +8,11 @@ createEnterprise:
         path: enterprise
         method: post
         cors: true
-        authorizer: verify-token
+        authorizer:
+          name: verifyToken
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.Authorization
+          type: token
 
 deleteEnterprise:
   handler: src/Enterprise._delete
@@ -18,7 +22,11 @@ deleteEnterprise:
         path: enterprise/{id}
         method: delete
         cors: true
-        authorizer: verify-token
+        authorizer:
+          name: verifyToken
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.Authorization
+          type: token
 
 getEnterprise:
   handler: src/Enterprise._get
@@ -28,6 +36,20 @@ getEnterprise:
         path: enterprise/{id}
         method: get
         cors: true
+
+editEnterprise:
+  handler: src/Enterprise._edit
+  description: Updates enterprise given on parameters
+  events:
+    - http:
+        path: enterprise/{id}
+        method: put
+        cors: true
+        authorizer:
+          name: verifyToken
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.Authorization
+          type: token
 
 getAllEnterprises:
   handler: src/Enterprise._getAll
@@ -40,18 +62,64 @@ getAllEnterprises:
 
 # -------- INVENTORY --------
 
+getProduct:
+  handler: src/Inventory/getProduct._get
+  description: Gets detailed information for product based on SKU
+  events:
+    - http:
+        path: product/{sku}
+        method: get
+        cors: true
+        authorizer:
+          name: verifyToken
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.Authorization
+          type: token
+
 createProduct:
-  handler: src/Inventory._create
+  handler: src/Inventory/createProduct._create
   description: Creates a product based on enterprise NIT.
   events:
     - http:
         path: product
         method: post
         cors: true
-        authorizer: verify-token
+        authorizer:
+          name: verifyToken
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.Authorization
+          type: token
+
+editProduct:
+  handler: src/Inventory/editProduct._edit
+  description: Updates a product based on SKU.
+  events:
+    - http:
+        path: product/{sku}
+        method: put
+        cors: true
+        authorizer:
+          name: verifyToken
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.Authorization
+          type: token
+
+deleteProduct:
+  handler: src/Inventory/deleteProduct._delete
+  description: Deletes a product based on SKU.
+  events:
+    - http:
+        path: product/{sku}
+        method: delete
+        cors: true
+        authorizer:
+          name: verifyToken
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.Authorization
+          type: token
 
 getProductsByEnterprise:
-  handler: src/Inventory._getByEnterprise
+  handler: src/Inventory/getByEnterprise._getByEnterprise
   description: Gets products who belongs to specific enterprise based on NIT.
   events:
     - http:
@@ -60,12 +128,25 @@ getProductsByEnterprise:
         cors: true
 
 sendEmailWithInventory:
-  handler: src/Inventory._sendEmail
+  handler: src/Inventory/sendEmail._sendEmail
   description: Send an email with inventory in PDF format
   events:
     - http:
         path: pdf_inventory/{id}
         method: post
         cors: true
-        authorizer: verify-token
   role: LiteNotificationRole
+
+getInventoryPDF:
+  handler: src/Inventory/getInventoryPDF._getInventoryPDF
+  description: Generates a pdf containing inventory information
+  events:
+    - http:
+        path: pdf_inventory/{id}
+        method: get
+        cors: true
+        authorizer:
+          name: verifyToken
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.Authorization
+          type: token

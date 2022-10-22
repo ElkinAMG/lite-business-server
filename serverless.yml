@@ -5,8 +5,16 @@ useDotenv: true
 
 custom:
   bundle:
+    copyFiles: # Copy any additional files to the generated package
+      - from: "./src/views/*" # Where the files are currently
+        to:
+          "./"
+          # Where in the package should they go
     ignorePackages:
       - pg-native
+    forceExclude: # Don't include these in the package
+      - chrome-aws-lambda # Because it'll be provided through a Lambda Layer
+      - puppeteer-core
 
 provider:
   name: "aws"

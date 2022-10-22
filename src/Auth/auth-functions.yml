@@ -1,4 +1,4 @@
-verify-token:
+verifyToken:
   description: It verifies tokens as custom authorizer
   handler: src/Auth/verifyToken.main
 

@@ -2,7 +2,7 @@ import handler from "../../lib/handler";
 
 export const _getByEnterprise = handler(async ({ Inventory }, event) => {
   try {
-    const { page } = event.queryStringParameters;
+    const page = event.queryStringParameters?.page;
 
     if (!page) throw "There must be a page for give data";
 
